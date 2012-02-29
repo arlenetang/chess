@@ -1,0 +1,520 @@
+<html> 
+  <head><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><title>Chess</title><link type="text/css" href="res/doc.css" rel="stylesheet"/></head>
+  <body><div id="main"><h1>Chess</h1><p><b>Please read this document in its entirety, preferably with your partner, before starting this assignment.</b>
+    </p><p>
+      In this assignment you will write a program that plays the game of <a title="chess on Wikipedia" href="http://wikipedia.org/wiki/chess">chess</a>. As you develop your program, you can compete   with other students' programs on a "chess server" that we have supplied. The chess server will give your program a chess rating, updated continuously as more games are played. You'll be able to see where your program stands in the ranking of all the other programs at any time by typing "best" on the chess server. We hope that this will be a really fun way for you to get your competitive juices flowing. Extra credit will be given to the top 20 finishers.
+    </p><p>
+      In addition to a chess server, we have supplied Java code that generates the legal chess moves (a non-trivial problem in itself), and a graphical user interface that lets your program connect to the chess server.
+    </p><p>
+      How will you know when your program is "good enough"? The answer is that there will be a "chess bot" called BachChoy on the chess server that you can have your program play against. As a minimum requirement, your program should be able to beat BachChoy consistently. For a perfect score on the assignment your engine should also be able to beat JackBach consistently.
+    </p><p>
+      Of course you can use any techniques you want, but we recommend that you take a look at the two lectures that were given in 2004 by Professor Daniel Sleator (and a similar version this semester):
+      <a href="http://www.cs.cmu.edu/afs/cs/academic/class/15211-f04/www/hw6/games1.txt">games1</a>, 
+      <a href="http://www.cs.cmu.edu/afs/cs/academic/class/15211-f04/www/hw6/games2.txt">games2</a>.
+      Feel free to look on the internet for ideas, but, as always, all the code you submit must be your own.  Cite any sources that you use.
+    </p><p>
+      We've supplied a lot of tools here: the move generator, GUI, chess server. There's a bit of work required to understand these things. But the actual programming required is just writing a chess search engine.
+    </p><p>If you don't know the <a title="rules of chess on Wikipedia" href="http://wikipedia.org/wiki/rules_of_chess">rules of chess</a>, or <a title="chess terminology on Wikipedia" href="http://wikipedia.org/wiki/chess_terminology">chess terminology</a>, here's a good
+      <a href="http://www.chessclub.com/resources/rules/">tutorial</a>.
+    </p><h2>Goals</h2><div class="xhtml2section"><ul> 
+        <li>
+          Develop an understanding of game-playing algorithms such as 
+          <a href="http://www.cs.cmu.edu/afs/cs/academic/class/15211-f04/www/hw6/games1.txt">game trees and alpha-beta pruning</a>
+        </li>
+        <li>
+          Gain experience with working in a team to develop a software application, and thereby understand better the value of modular
+            programming.
+        </li>
+        <li>
+          Hone your debugging skills.
+        </li>
+        <li>
+          Experience the wonder of a program you wrote being "smarter" than you are.
+        </li>
+      </ul></div><h2>Deliverables</h2><div class="xhtml2section"><p>
+      We've split the assignment into 4 parts. The first two are for unit test purposes, and will be handed in on FrontDesk. The third, you need to write on the given text file and need to submit to the FrontDesk within the package, and the last will be your performance on the chess server.
+      </p><h3>Evaluator Testing (15 points)</h3><p>A general use unit tested static evaluator. </p><h3>Alpha Beta Search Testing (15 points)</h3><p>A unit tested fixed depth alpha beta search.</p><h3>Battling Bots (30 points)</h3><p>Competing against bots on the chess server.</p><h3>Theory questions (35 points)</h3><p>Turn in a printed, typeset copy of your theory questions in lecture on Tuesday, 27 April.</p><h3>Overall Coding Style (10 points)</h3></div><h2>Rules</h2><div class="xhtml2section"><ul>
+        <li>You should not modify any of the provided classes except for Engine, TestedEvaluator, 
+	  or TestedAlphaBetaFixedDepth.
+          You are free, however, to create any additional classes that you want to create. This means if
+          you want to make modifications to the board, for example, you should copy the code
+          into a new class and make the modifications there.</li>
+	  <li>On your regular account all games must be played by your chess engine. You may log in as a guest
+	  if you want to play games yourself, i.e. not using your chess engine.
+	  </li>
+	      <li>You may NOT use the unix.andrew.cmu.edu shared computers to play chess.
+	        These computers are a shared university resource. The chess engine requires a lot
+	  of CPU time and might prevent others from doing work. You may, however, use the local CPU resources
+	  of a cluster machine that you are physically at.</li>
+        <li>You may not use any code other than that supplied by us or written by yourself.</li>
+        <li>If you get ideas from the literature or the web, reference the source.</li>
+        <li>You may work with a partner. If both accounts of a partnership are in 
+            the rank list, we will use the higher rank for purposes of grading.</li>
+        <li>Before the end of the assignment, you must submit a final version
+          of your code to FrontDesk which includes anything you did to improve your
+          program over the unit tested version.</li>
+      </ul></div><h2>Teams</h2><div class="xhtml2section"><p>You may work with a partner in the
+      course for this assignment. You may work alone, if you wish, but you
+      may not work with more than one partner.</p><p>Be sure that you are familiar with all of your
+      partnership's code, even if you do not work alone.
+      The code that you will write for this assignment is relatively
+			small, but it is easy to make mistakes.  Try to avoid dividing
+			the work; instead, attempt to collaborate on
+			the code together. (This means sitting down at the
+			same computer with one person typing). Both partners
+			should take an active role in the testing and debugging
+	process. Your TA might require
+      that you explain how you split the work for this project, and ask each
+      of you to independently explain any code you submitted.  You should
+      both be actively involved in the coding and debugging process for any
+      code you submit.</p></div><h2>Groups and FrontDesk</h2><div class="xhtml2section"><p>If you work as a group, you must create a group on Frontdesk for this
+      assignment.  One member of your partnership must click the "create a
+      group" link on the FrontDesk assignment page and enter the andrew id
+			of the other person. That person will get an email, and
+			needs to accept the invitation. Then either person can
+			submit homework for the group.</p></div><h2>Logistics</h2><div class="xhtml2section"><p>
+				As stated above, each member of a team must be involved in all parts of the
+      code. The course staff is not responsible for partner problems, and once
+				you choose a partner on FrontDesk that decision
+				is final. You should choose someone with similar work
+				habits.</p><p>
+				Working together also involves figuring out a way to store
+				and share your work. You might consider using the AFS services
+				provided by the Andrew system for storing your data.
+				If you do this, you must to protect your directory (with the
+				<tt>fs sa</tt> command). A more organized way of handling
+				this problem is to use a <a title="source control on Wikipedia" href="http://wikipedia.org/wiki/source_control">source control</a> system. The course
+				staff highly recommends <a href="http://subversion.tigris.org/">Subversion</a>.
+			</p><p>
+				Setting up Subversion at CMU is easy. One partner will host the
+				repository. Here is a brief summary of the SVN commands required
+				to set up a repository on the Andrew filesystem (not comprehensive: 
+				consult Google for a better tutorial):
+			</p><ul>
+			<li><tt>pts creategroup hbovik:mygroup</tt> //creates a workgroup</li>
+			<li><tt>pts adduser hbovik</tt> //adds a user to the group (you should add your partner too)</li>
+			<li><tt>fs sa my_svn_dir/ -clear -acl hbovik:mygroup all system:anyuser l</tt> //gives mygroup 
+			all file permissions, and everyone else lookup only</li>
+			<li><tt>aklog -force</tt> //forces you to get Kerberos tokens for your new group</li>
+			<li><tt>svnadmin create my_svn_dir</tt> //creates the repository</li>
+			</ul><p>
+				At this point, either parnter can check out the code from
+			</p><pre>
+	<tt>svn+ssh://unix.andrew.cmu.edu/afs/andrew/usr/hbovik/my_svn_dir/</tt>
+			</pre><p>
+				On Windows, you should
+				download <a href="http://tortoisesvn.tigris.org/">TortoiseSVN</a>. The site
+				for this SVN client has a good set of documentation.  Eclipse also has an 
+				extemely easy to use plugin, <a href="http://subclipse.tigris.org/">Subclipse</a>,
+				which is the recommended way to use SVN (Eclipse also supports CVS and other 
+				source control systems) if you use Eclipse.
+			</p><p>
+				If you are having trouble with SVN, see your TA for help. All of the
+				course staff uses SVN, so they should be able to give you some pointers.
+			</p></div><h2>Time Management</h2><div class="xhtml2section"><p>Because this assignment is due immediately before exams, please start early. It 
+			makes the fourth part of the assignment much easier 
+			and much more fun.  This is an open-ended assignment with
+			competition--we hope you enjoy it!</p></div><h2>Late Days</h2><div class="xhtml2section"><p>If you are working in a pair, you will be able to use
+			the maximum of the number of days each person has. If either
+                        of a pair has at least 2 late days, then the pair may use
+                        2; otherwise, if either of a pair has at least 1 late day, then
+                        the pair may use 1. 
+                        </p><p>Late days only affect the portion of the assignment turned
+			into FrontDesk, everyone can compete on the chess server until
+			the last day of the assignment.</p></div><h2>Supplied Java Code</h2><div class="xhtml2section"><h3>Overview</h3><p>
+        The various interfaces and key classes all have Javadocs
+        explaining both their purpose and their representation. 
+        Below is a more high-level description of the interfaces
+        and key classes which are provided to you.  Before you
+        start to code you should be sure you understand 
+        all of the methods in each interface.
+      </p><h3>Sophisticated Generics</h3><p>
+        We are using some slightly sophisticated and sneaky Java Generics
+        for this assignment.  It follows the pattern of the Enum
+        class in Java and allows you to specify subclasses of an
+        interface in the interface's declaration.  You are not
+        required to have a deep understanding of what is going on
+        here.  Either imitate the style of the classes we have
+        already defined for you or ask a TA.  If you want to know more
+        about the style, however, a good place to start is this article:
+        <a href="http://madbean.com/2004/mb2004-3">
+	      Groking Enum (aka Enum&lt;E extends Enum&lt;E&gt;&gt;)
+        </a>
+      </p><p>
+        
+      </p><h3>The Move interface</h3><p>
+        A <tt>Move</tt> is an object that has the start and end squares of
+        a piece's chess move. For castling, start and end squares are used.
+        A standard notation for a square of the
+        chessboard is to indicate the vertical <em>file</em> (a letter from
+        <tt>a</tt> to <tt>h</tt>) and the horizontal <em>rank</em> (a number from
+        <tt>1</tt> to <tt>8</tt>). The ranks and files are shown in the
+        following diagram of the initial position of a chess game. In
+        this notation, for example, the white queen is located on the
+        square <tt>d1</tt>.The white player's pieces
+        always start in the ranks 1 and 2, and the black player's pieces
+        always start in ranks 7 and 8.
+      </p><div align="center"> 
+        <img src="chessboard.jpg" width="442" height="418"/>
+      </div><p>
+        A move is usually indicated by concatenating the starting square
+        and the ending square of a chess piece. For instance, a typical first move is <tt>d2d4</tt>.
+        (Also called pawn to king 4.)
+      </p><h3>The Board interface</h3><p> A <tt>Board</tt> is an object that defines the state of a chess
+      game. It contains methods for generating all the legal <tt>Move</tt>s
+      for a chess position and code that, given a <tt>Move</tt>, updates the board
+      state. It also contains a method for determining if the king is in
+      check. You are free to implement your own <tt>Board</tt> if you want to
+      use a more efficient Board representation..
+      </p><h3>The Evaluator interface</h3><p>
+        An <tt>Evaluator</tt> is an object which implements a static evaluation
+        function which assigns a score to a <tt>Board</tt>. You'll implement
+        one in <tt>TestedEvalutor.java</tt> which resides in the
+        <tt>edu.cmu.cs211.chess.unittested</tt> package. We have provided
+        detailed comments in this class as to what your evaluator should do
+        to pass the unit tests. If you want to change the way your evaluator
+        works for playing against the bots, you MUST do so in a different
+        class.
+      </p><h3>The Searcher interface</h3><p>
+        A <tt>Searcher</tt> is an object which allows one to search a game
+        tree given an initial <tt>Board</tt>. A <tt>Searcher</tt>'s correctness
+        will depend on the correctness of the <tt>Board</tt> (the Board's
+        <tt>Move</tt>s), and the <tt>Evaluator</tt>. You will implement
+        <tt>TestedAlphaBetaFixedDepth</tt> which resides in the
+        <tt>edu.cmu.cs211.chess.unittested</tt> package. 
+        Again, if you want to change the way your searcher works for
+        playing against the bots, you MUST do so in a different class.
+      </p><h3>The Engine class</h3><p>
+        The <tt>Engine</tt> class specifies exactly how your bot will perform
+        when playing a game. A new <tt>Engine</tt> is created every time you
+        start a game. If you define custom boards, evaluators, or searchers,
+        you need to change the types of the variables declared at the top of
+        this class to get your bot to actually use the custom classes when it
+        plays a game. Note: You should not change starter code for your Frontdesk
+submissions but are free to change whatever you like when running on
+the chess server.
+      </p></div><h2>A Reasonable Plan of Action</h2><div class="xhtml2section"><p>
+        As in any programming project, you should write and test your
+        program in small pieces. We've encouraged this by requiring you
+        to satisfy unit tests for two important parts. The first one is
+        the tested evaluator, and the second one is the computing a best
+        move in a fixed depth search.
+      </p><h3>STEP 1 (15 points):</h3><p>You will complete the implementation of
+          the <tt>eval()</tt> method described in  <tt>TestedEvaluator.java</tt>.
+          It must work exactly as described in the comments within the file. This
+          evaluator is worth 15 points.
+          </p><p>
+            Since we're defining a specification for you, we've also provided
+            some tests. Please check out <tt>EvaluatorTest.java</tt>.
+          </p><h3>STEP 2 (15 points):</h3><p>You will implement
+          <tt>Move getBestMove(B board, int myTime, int opTime);</tt> in
+          <tt>TestedAlphaBetaFixedDepth.java</tt> This method returns a
+          <tt>Move</tt> which is the best move that it can find doing a
+          search to the specified depth. There may be more than one equally
+          good move at a given depth. As long as <tt>getBestMove()</tt>
+          returns one of them, it's working properly. The tests for your searcher
+          are worth 15 points.
+          </p><p>
+            We recommend that instead of jumping right into alpha-beta you
+            code and debug minimax or negamax. We recommend that you use negamax.
+	    We've provided you with some of
+            the tests we are using in <tt>AlphaBetaTest.java</tt>.  Your
+            tests will most likely timeout on our server if you do not use alpha-beta pruning;
+	    however, it's a good thing to try first on your own
+            computer with the tests provided.  As a starting point, you can
+            use <tt>DFS.java</tt> as a template.  Note that
+            DFS doesn't try to find the best move or do anything clever.
+          </p><p>
+            While evaluating a board, if you find out that there are no valid
+            moves, then you are either in checkmate or stalemate. You should
+            use the values <tt>-evaluator.stalemate()</tt> for stalemate,
+            and <tt>-evaluator.mate()</tt> for checkmate (it's not
+            <tt>evaluator.mate()</tt> because it's "your" turn, and there's
+            nothing you can do). You must also take into consideration
+            the depth the checkmate occurs at, and give a bonus point to
+            checkmates occuring higher up the tree. This stalemate/checkmate
+            condition is a feature of your negamax/alpha-beta and not your
+            evaluator (this is something we're defining--you're free to modify
+            this relationship for the non-unit-tested, timed version), so if
+            there's a checkmate or stalemate at depth=0, you should just call
+            the evaluator on the board. The reason we do this is for
+            performance benefits.
+          </p><p>
+            Optionally, you can watch your bot "think" about the next move it
+            should make by using AbstractSearcher.reportNewBestMove().  During
+            your alpha beta search, every time you find a new best move, simply
+            call reportNewBestMove() with the move as the parameter.  This will
+            cause a red line to be drawn on the chess board that shows the
+            piece your bot would like to move next and where it would be moved to.
+            You are not requried to use this feature, but it can make watching
+            your bot more fun.
+          </p><h3>STEP 3:</h3><p>You might want to modify the implementation
+          of <tt>computeMove(int timeleft, int optime)</tt> in
+          <tt>Engine.java</tt>. Note that we have provided a basic but fully
+          functional implemenation of this method as an example. It uses
+          <tt>TestedAlphaBetaFixedDepth</tt> and <tt>TestedEvaluator</tt>.
+          Again, you should not change starter code for your Frontdesk
+          submissions, but are free to change whatever you like when running on
+          the chess server.
+          </p><h3>A Timed Version of AlphaBeta:</h3><p>
+        When you play against the bots on the server, we recommend using a timed version of AlphaBeta which uses iterative deepening.  You will need to implement <tt>Move Searcher.getBestMove(Board b, int timeleft, int optime)</tt> in some class which implements the <tt>Searcher</tt> interface. This is the move-searching algorithm that is used by the <tt>EasyChess</tt> GUI (and the <tt>TextChess</tt> version). This is the one that you will be using to play opponents on the chess server. You are free to modify the API of your timed alpha beta as you desire, since it is not unit tested by us.  All we care about is <tt>Engine.computeMove</tt> working as specified.
+      </p><p>
+        When implementing the timed version of alpha beta to beat the bots, you might find that you want to try different versions of alpha-beta and different evaluators. We recommend that you do this by creating different files for each strategy that you use. You can plug and play evaluators by making them implement the <tt>Evaluator</tt> interface. Similarly, you can create different implementations of the alpha-beta search API. This will be much less messy than commenting out segments of code as you experiment with different playing strategies.
+      </p></div><h2>About Time Controls</h2><div class="xhtml2section"><p>
+        Each player in a chess game has a clock. When it is your turn to move, your clock
+counts down and your opponent's clock is stopped. If your clock reaches zero, you lose. The time control is a pair of numbers <tt>(min, increment)</tt> which means that the clock initially has <tt>min</tt> minutes on it, and after you make a move, your clock gets <tt>increment</tt> seconds added to it. The time control we'll be using to play your programs is (3,2) - 3 minutes of initial time, and 2 seconds of increment.
+      </p><p>
+        We have provided you with two implementations of the Timer interface, NoTimer and SimpleTimer.  NoTimer will not track time so that you can test your AlphaBeta without any time constraints.  SimpleTimer takes the aforementioned <tt>min</tt> and <tt>increment</tt> values in its constructor and allows you to test if time is up by calling timeup().
+      </p><p>
+        The method <tt>timer.start()</tt> should be called at the beginning of your <tt>getBestMove()</tt> method. The two parameters are the time left for you and the time left for the opponent in seconds. Based on this, and the time control of the game, it figures out how much time to allocate for thinking about the next move. The boolean method <tt>timeup()</tt> should be called frequently during the search for a move to make. When it returns <tt>true</tt> this means that the search should wrap up quickly and return a move.
+      </p></div><h2>Beating the Bots: BachChoy (20 points) and Jack Bach (10 points)</h2><div class="xhtml2section"><p>Your program should be able to beat BachChoy. On a typical computer (2.2 GHZ), this can be done consistently by implementing the following features:
+      </p><ul> 
+        <li>
+          Alpha-Beta search
+        </li>
+        <li>
+          The evaluation function as described in <tt>TestedEvaluator.java</tt>
+        </li>
+        <li>
+          AlphaBetaFixedDepth (a fixed-depth alpha-beta search at level 4).
+        </li>
+      </ul><p>
+        None of the more advanced features listed below are necessary to beat BachChoy.
+      </p><p>
+        For full credit, you are required to beat JackBach. To do this you'll need to do quite a bit more. The following features (in addition to those above) should be sufficient to beat JackBach 95% of the time. Perhaps you won't need to implement all of these, or in exactly the same way. But this should be sufficient. These advanced techniques are described in more detail in Sleator's <a href="http://www.cs.cmu.edu/afs/cs/academic/class/15211-f04/www/hw6/games2.txt">second lecture</a> on game programming.
+      </p><ul> 
+        <li>
+          <strong>Hashing:</strong> Many advanced techniques require you to use a hashtable or a map from Board types to other types.  Because the equals method in any Board is most likely going to be slow, you should map from long Board.signature() instead.
+        </li>
+        <li>
+          <strong>A repetition table:</strong> This keeps an integer count for all the positions played in the game, and all the positions on the current search path down to (but not including) the current position being evaluated. Inside of alpha-beta, right at the beginning, check if this position has occured at least 2 times before. If so, the value of the position is immediately returned as 0.  (Actually, it's probably better to more aggressively declare a 0 value if the position has occured 1 or more times before.)
+        </li>
+        <li>
+          <strong>Iterative Deepening with Move Ordering:</strong> The best move found by each call to alpha-beta search is stored in a hash table. When doing the search at a position, we try the best move first. (Typically this move was found in a shallower depth search.) This is followed by the capture moves, which is followed by the rest of the moves. This sets up a tighter window for alpha and beta and helps prune more moves.
+        </li>
+        <li> 
+          <strong>Quiescent Search:</strong> Instead of calling Evaluator.eval(b) at the end of the alpha-beta search (when depth=0) you call a new quiescent alpha-beta search instead. The main difference between quiescent search and alpha-beta is that a different set of moves is considered. (So it uses the same alpha and beta parameters, etc.) If the player to move is in check, then all moves are considered. If not, we consider a "stand pat" move, that is we just use the evaluator on the current board position as one of our options. And then all the capture moves are considered. The other moves are not considered. If this turns out to be too slow, then you can artificially cut it off at some depth, like 4 or 5.
+        </li>
+      </ul></div><h2>Playing Chess</h2><div class="xhtml2section"><p> 
+        <tt>TextChess</tt> is a class that allows you to test your chess program in text-only mode by playing against it. This class does not connect to the chess server. You can find it in the starter code here: <tt>src/edu/cmu/cs211/chess/playchess/offline</tt>.
+      </p><p>
+        It will print an ASCII board and prompt like this:
+      </p><pre>
+        Computer player: Name of Bot
+        Position (White to move):
+           a b c d e f g h
+          +---------------+
+        8 |r n b q k b n r| 8
+        7 |p p p p p p p p| 7
+        6 |- - - - - - - -| 6
+        5 |- - - - - - - -| 5
+        4 |- - - - - - - -| 4
+        3 |- - - - - - - -| 3
+        2 |P P P P P P P P| 2
+        1 |R N B Q K B N R| 1
+          +---------------+
+           a b c d e f g h
+
+        Moves:
+        Na3 Nc3 Nf3 Nh3 a3 a4 b3 b4 c3 c4 
+        d3 d4 e3 e4 f3 f4 g3 g4 h3 h4 
+        White move (or "go" or "quit")&gt; 
+      </pre><p>
+        At this point you can type in a move for white, or you can type "go" to have the computer make a move in the current position. <tt>TextChess</tt> will access your program through <tt>Engine</tt>.
+      </p><p>
+        The <tt>Engine</tt> is also designed to work with a GUI called <tt>EasyChess.java</tt>. The <tt>EasyChess</tt> software is in the distribution at <tt>src/edu/cmu/cs211/chess/playchess/online</tt>. 
+      </p><p>
+        When you run <tt>EasyChess.java</tt> you should see a login window which provides two ways to log in:
+      </p><ul> 
+        <li>
+          Login with your user name and password. In this case, click on 'Connect!' button. This will use your program to play chess. This is what you will be graded on.
+        </li>
+        <li>
+          Login as a guest. You do not need to supply a username or password. Just click on the 'Login as Guest' button. The chess games you play as a guest do not use your chess program. You play the game yourself by clicking and dragging the chess pieces.
+        </li>
+      </ul><p>
+        Normally, you will log in to the chess server with your username and password. However, for debugging purposes i.e. you want to play against your program, you can log in to the chess server twice (one as a guest where you make the move and one through your username, where your program makes a move) and then create an unrated match between them by typing 'match name 3 2'
+      </p><p>
+        Once you have logged in, you will see the chess board, clocks, message box, and menu. While on the chess server your program can play others and get a rating. You can also chat with other people logged onto the server. 
+      </p></div><h2>Chess Server</h2><div class="xhtml2section"><p>
+        Everybody in the class can register one account on the 211 Chess Server. You can choose an account name and password initially by using <a href="http://www.link.cs.cmu.edu/211/sign-up.html">this link</a>. Be aware that your password is stored in plaintext on the server, so do not use a secure password that you use for other accounts. If you are working in a pair, we will grade the better-scoring of your partnership's accounts.
+      </p><p>
+        You can connect to the chess server using the supplied EasyChess GUI.  If you login as a guest, you can play manually with the mouse.  If you login using your account, then your chess engine will supply the chess moves.  For a better user interface you might try <a href="http://www.gnu.org/software/xboard/">Winboard</a> (under windows) or <a href="http://www.gnu.org/software/xboard/">Xboard</a> (under unix).  Click the appropriate download link on that page, and follow the instructions. The machine hosting our chess server is <tt>boojum.link.cs.cmu.edu</tt>. Use port 5000. You can also connect to it and get the pure text interface with "ssh boojum.link.cs.cmu.edu 5000".
+      </p><p>
+        The chess server has very rich functionality that takes hundreds of pages to describe. For now, here are some very basic commands. You can type these into the bottom of the "main console" window of the GUI.
+      </p><ul> 
+        <li> 
+          <tt>who</tt>
+          <br/>
+          Shows all the players currently logged on.</li>
+        <li> 
+          <tt>finger Johnny</tt>
+          <br/>
+          This command shows Johnny's ratings, other statistics, and "finger 
+          notes", which are a user settable set of messages. If Johnny is omitted 
+          it uses yourself.</li>
+        <li> 
+          <tt>211</tt>
+          <br/>
+          This command puts your program into the 211 pool. After waiting a 
+          while, it will automatically pair your program against another program in 
+          the pool. It uses a number of criteria to choose the match. It tries 
+          not to pair the same programs too many times in a row, and it tries to 
+          pair programs that have a similar rating, etc. The 211 pool uses a time control 
+          of (3, 2): 3 minutes initial time and 2 seconds of increment. Once 
+          a game ends, your program is automatically taken out of the 211 pool. If you 
+          want your program to stay in the 211 pool, then go to the Menu-&gt;Game-&gt;stay 
+          in the 211 pool. This just issues the 211 command again automatically 
+          when your match finishes, putting you back in the pool. This way you 
+          can leave your program running all the time, unattended.
+        </li>
+        <li> 
+          <tt>observe Johnny</tt>
+          <br/>
+          This allows you to watch Johnny's current game. Turn it off with 
+          <tt>observe</tt>.
+        </li>
+        <li> 
+          <tt>follow Johnny</tt>
+          <br/>
+          Automatically observe all of Johnny's games. Turn it off with 
+          <tt>follow</tt>.
+        </li>
+        <li> 
+          <tt>best</tt>
+          <br/>
+          This command shows the best players in various rating categories. 
+          The "211" category is the one resulting from the 211 pool. Note that 
+          you cannot get into this list until you have played 20 games in the 
+          relevant category.
+        </li>
+        <li> 
+          <tt>rank Johnny</tt>
+          <br/>
+          An extension of best that tells me the rank of Johnny in all categories.
+        </li>
+        <li> 
+          <tt>match Johnny</tt>
+          <br/>
+          This issues a match request against a player named Johnny. Johnny 
+          can then 
+          <tt>accept</tt>
+          the match, and the game starts. The default time control for this 
+          game is also (3, 2), but the rating is in the blitz rating category, 
+          not the 211 category. This is useful for comparing your program against 
+          other specific opponents, and for playing the BachChoy bot to gauge 
+          the strength of your program.  You can change the time controls with
+          match opponent time inc.  So, <tt>match bachchoy 1 1</tt> creates a 
+          game playing BachChoy with 1 minute start time and 1 second increments.
+        </li>
+	<li> 
+          <tt>set open 0</tt>
+          <br/>
+          This turns off the ability to automatically accept matches.
+        </li>
+        <li> 
+          <tt>tell Johnny hi</tt>
+          <br/>
+          This issues a personal tell to Johnny of the message "hi". To talk 
+          to Johnny again, it's sufficient to use ". hi again".
+        </li>
+        <li> 
+          <tt>shout hello!</tt>
+          <br/>
+          This shouts a message to everybody logged on to the chess server.
+        </li>
+        <li> 
+          <tt>history Johnny</tt>
+          <br/>
+          This shows an index of the last 20 games played by Johnny (or you, 
+          if the name is omitted). Each game has a number to its left. You can 
+          use the 
+          <tt>examine Johnny 34</tt>
+          to see the moves of Johnny's game 34. Hit the enter key to move through 
+          the game while in examine mode. (This is somewhat awkward
+          to use in EasyChess.  You have to type a space before
+          hitting enter.  And moving backwards does not work.  To
+          use these features seamlessly, try the Winboard or Xboard
+          interfaces mentioned above.)
+        </li>
+        <li> 
+          <tt>help resign</tt>
+          <br/>
+          This displays the help file about the resign command. Of course there 
+          are help files for all other commands.
+        </li>
+      </ul><p>For more information about the chess server, a good summary document 
+        to read is 
+        <a href="http://www.chessclub.com/help/intro">this introduction</a>
+        . There are individual help files for each command. 
+        <a href="http://www.chessclub.com/cgi-bin/help-files.pl">This page</a>
+        lists all of them, and has links to the files. (Not all of these commands 
+        will work on our 211 server, for example, the "5-minute" command has 
+        been replaced by the "211" command.)</p><p>In our chess server, the game is immediately declared a draw when a 
+        position has occured 3 times (twice before), or when 100 moves have 
+        been made in a row (count moves of both sides) where none of the moves 
+        are pawn moves, castling moves, or captures. (In usual chess declaring 
+        a draw in these situations requires that one side ask for a draw. Here 
+        we do this automatically, to eliminate the problem of having to decide 
+        when to offer a draw.)
+      </p></div><h2>The Bach Family</h2><div class="xhtml2section"><p>The following bots are always logged into the chess server waiting 
+          to play against you:</p><ul>
+			<li><tt>Beethoven</tt></li>
+			<li><tt>JSBach</tt></li>
+			<li><tt>StrongBach</tt></li>
+			<li><tt>JackBach</tt></li>
+			<li><tt>PDQBach</tt></li>
+			<li><tt>ReBach</tt></li>
+			<li><tt>BachChoy</tt></li>
+			<li><tt>BabyBach</tt></li>
+		</ul><p>These are listed from strongest to weakest. To start a game with, for 
+          example, BachChoy, type "match bachchoy". These bots can play several 
+          games at once. As you improve your program you can move up the list 
+          and try to beat them all.</p></div><h2>Grading</h2><div class="xhtml2section"><p>The assignment has 105 points; with extra credit, you can earn up to 135 points. 
+	   They are broken down as follows:</p><ul> 
+          <li>30 points for the unit tests on the evaluators and fixed depth alpha-beta 
+            search described above.</li>
+          <li>10 points for style in the unittested classes.</li>
+          <li>35 points for the theory questions distributed on the class lectures webpage.
+             </li>
+          <li>20 points for your performance against a program running on the 
+            chess server named BachChoy.  When working as a pair, we will look
+            at the last ten games played on one user account (taking the maximum 
+            of the two scores).</li>
+          <li>10 points for your performance against a program running on the 
+            chess server named JackBach.  When working as a pair, we will look
+            at the last ten games played on one user account (taking the maximum 
+            of the two scores).</li>
+          <li>Up to 20 points of extra credit for your performance in the 211 pool.</li>
+        </ul><h3>BachChoy and JackBach</h3><div class="xhtml2section"><p>The points against BachChoy will be assigned as follows. (To play BachChoy 
+          type "match bachchoy".) We'll look at your last 10 games against BachChoy. 
+          We'll compute your score as follows: 1 for each win, 1/2 for each draw, 
+          0 for each loss. We'll then multiply this total by 2 to convert this 
+          to points. Your score against JackBach
+	will be computed similarly, but without the final multiplication.  All of these games should be played with the standard 
+          (3, 2) time control.  Notice that it does not matter if you lose a million 
+          games in a row against BachChoy, as long as you win your last 10 games 
+          you get full credit for BachChoy.</p></div><h3>The 211 Pool Points</h3><div class="xhtml2section"><p>At some point near the end of the assignment all of the ratings in the 211
+          pool will be reset and you will have 2 days to compete in the pool.
+          This will make the ratings more accurately reflect the final performance of your
+          bot because everyone will be playing in approximately the same time period.</p><p>You can earn up to 20 extra credit points by playing in the
+	211 chess pool. You must play at least 20 games in the 211 category. This will establish your rating, and you'll be listed in the best and rank lists 
+          in the 211 category. Immediately after the assignment is due, we will record the 211 rank list. The top 20 finishers 
+          (who are enrolled as students in this course) will get extra credit 
+          points. The top finisher will get 20 points, the next will get 19 points, 
+          ... the 20th will get 1 point.</p></div></div><h2>Tips and Resources</h2><div class="xhtml2section"><p>Here are some links to Google searches and web sites that you might 
+          find useful:</p><ul> 
+          <li><a title="game tree search on Wikipedia" href="http://wikipedia.org/wiki/game_tree_search">game tree search</a></li>
+		      <li><a title="alpha-beta on Wikipedia" href="http://wikipedia.org/wiki/alpha-beta">alpha-beta</a></li>
+          <li><a href="http://www.google.com/search?hl=en&amp;lr=&amp;q=+iterative+deepening&amp;btnG=Search">a 
+            search for iterative deepening on Google</a></li>
+          <li><a href="http://www.gamedev.net/reference/articles/article1197.asp">quiescence 
+            search</a></li>
+          <li><a href="http://www.google.com/search?hl=en&amp;q=chess+evaluation+function&amp;btnG=Google+Search">Google 
+            search for information on evaluation functions</a></li>
+          <li><a href="http://www.google.com/search?hl=en&amp;lr=&amp;q=chess+move+ordering+alpha+beta+search&amp;btnG=Search">Google 
+            search for move ordering</a></li>
+          <li><a href="http://chess.about.com/library/ble50ndx.htm">about.com article 
+            about opening playbook</a></li>
+          </ul></div></div></body>
+  </html>
